@@ -151,9 +151,6 @@ const App = () => {
     return () => clearTimeout(timeout)
   }, [filteredCountryData.length, input])
 
-  console.log(process.env.OPEN_WEATHER)
-  
-
   const convertKelvinToFahrenheit = num => {
     const celsius = num - 273
     const fahrenheit = (celsius * (9 / 5)) + 32
