@@ -151,17 +151,17 @@ const App = () => {
     return () => clearTimeout(timeout)
   }, [filteredCountryData.length, input])
 
+  console.log(process.env.OPEN_WEATHER)
+  
 
   const convertKelvinToFahrenheit = num => {
     const celsius = num - 273
     const fahrenheit = (celsius * (9 / 5)) + 32
-
     return fahrenheit.toFixed(1);
   }
 
   const convertMeterSecondToMilesHour = num => {
     const mph = (num * 3600 * 3.28084) / 5280
-
     return Number(mph.toFixed(2))
   }
 
