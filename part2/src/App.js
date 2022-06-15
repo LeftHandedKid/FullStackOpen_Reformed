@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import debounce from 'lodash.debounce';
 
 // understand what Buffer does in more detail
 import { Buffer } from 'buffer';
