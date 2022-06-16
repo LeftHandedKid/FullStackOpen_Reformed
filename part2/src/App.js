@@ -109,7 +109,8 @@ const App = () => {
   useEffect(() => {
     // look into the BASE64 BUFFER DATA CHANGE FROM BINARY TO STRING
     // can learn a lot from that in how to stream data
-    if (filteredCountryData.length === 1) {
+    // also, only run the code when the url is complete so an error doesnt return in console
+    if (filteredCountryData.length === 1 && icon.icon !== undefined) {
       const url = `https://openweathermap.org/img/wn/${icon.icon}@2x.png`
       axios
         .get(url, { responseType: "arraybuffer" })
@@ -196,7 +197,7 @@ const App = () => {
                 <p>temperature {temp} Fahrenheit</p>
                 <p>currently feels like {tempFeelsLike} Fahrenheit</p>
                 <img src={`data:image/jpeg;charset=utf-8;base64,${base64}`} alt="weather" />             {!isLoadingIcon && description}
-                {/* if loadingicon is false then show the description with the imgage above */}
+                {/* if loadingicon is false then show the description with the image above */}
                 <p>wind {windSpeed} mph</p>
               </article>
             </>
