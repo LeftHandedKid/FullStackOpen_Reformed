@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-
 // understand what Buffer does in more detail
 import { Buffer } from 'buffer';
 import axios from 'axios'
@@ -20,7 +19,6 @@ const Display = ({ arr, index }) => {
       </li>
     )
   });
-
   // console.log(countryObject);
 
   return (
@@ -68,7 +66,6 @@ const App = () => {
   const [weatherWind, setWeatherWind] = useState([]);
   const [base64, setBase64] = useState();
   const [icon, setIcon] = useState([]);
-  const [isLoadingPage, setIsLoadingPage] = useState(true)
   const [isLoadingIcon, setIsLoadingIcon] = useState(true)
 
   const api_key = process.env.REACT_APP_API_KEY;
@@ -98,13 +95,12 @@ const App = () => {
       const lon = filteredCountryData[0].latlng[1]
       axios
         .get(`
-        http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}
+        https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}
         `)
         .then(response => {
           setWeather(response.data.main)
           setWeatherWind(response.data.wind)
           setIcon(response.data.weather[0])
-          setIsLoadingPage(false)
         })
     }
   }, [api_key, filteredCountryData.length])
@@ -140,11 +136,9 @@ const App = () => {
     // until one country and input is finished for 1.25 seconds 
     if (input && filteredCountryData.length === 1) {
       timeout = setTimeout(() => {
-        console.log(true)
         setIsLoadingIcon(false)
       }, 1250);
     } else {
-      console.log(false)
       setIsLoadingIcon(true)
     }
 
@@ -193,23 +187,21 @@ const App = () => {
       const description = icon.description
 
       return (
-        isLoadingPage
-          ? <h1>Loading</h1>
-          :
-          <>
-            <Display arr={filteredCountryData} index={0} />
-            <h1>Weather in {capital}</h1>
-            <p>temperature {temp} Fahrenheit</p>
-            <p>currently feels like {tempFeelsLike} Fahrenheit</p>
-
-            {isLoadingIcon
-              ? <h1>Loading</h1>
-              :
-              <img src={`data:image/jpeg;charset=utf-8;base64,${base64}`} alt="weather" />
-            } {!isLoadingIcon && description}
-            {/* if loadingicon is false then show the description with the imgage above */}
-            <p>wind {windSpeed} mph</p>
-          </>
+        <>
+          {isLoadingIcon ? <h1>Loading...</h1> :
+            <>
+              <Display arr={filteredCountryData} index={0} />
+              <article>
+                <h1>Weather in {capital}</h1>
+                <p>temperature {temp} Fahrenheit</p>
+                <p>currently feels like {tempFeelsLike} Fahrenheit</p>
+                <img src={`data:image/jpeg;charset=utf-8;base64,${base64}`} alt="weather" />             {!isLoadingIcon && description}
+                {/* if loadingicon is false then show the description with the imgage above */}
+                <p>wind {windSpeed} mph</p>
+              </article>
+            </>
+          }
+        </>
       )
     }
   }
