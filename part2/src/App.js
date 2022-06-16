@@ -110,11 +110,11 @@ const App = () => {
     // look into the BASE64 BUFFER DATA CHANGE FROM BINARY TO STRING
     // can learn a lot from that in how to stream data
     if (filteredCountryData.length === 1) {
-      const url = `http://openweathermap.org/img/wn/${icon.icon}@2x.png`
+      const url = `https://openweathermap.org/img/wn/${icon.icon}@2x.png`
       axios
         .get(url, { responseType: "arraybuffer" })
         .then(response => setBase64(Buffer.from(response.data, "binary").toString("base64")))
-        .catch(err => console.log(err))
+        .catch(err => err)
     }
   }, [filteredCountryData.length, icon])
 
