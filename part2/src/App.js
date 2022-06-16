@@ -125,7 +125,7 @@ const App = () => {
     let timeout
 
     // if input and the name of the country is typed
-    // after 1.25 seconds, the loading icon will 
+    // after 1.00 seconds, the loading icon will 
     // display the weather and description
 
     // this also takes input of the country name not being
@@ -138,7 +138,7 @@ const App = () => {
     if (input && filteredCountryData.length === 1) {
       timeout = setTimeout(() => {
         setIsLoadingIcon(false)
-      }, 1250);
+      }, 1000);
     } else {
       setIsLoadingIcon(true)
     }
